@@ -11,6 +11,7 @@ import { Strategy } from "passport-local";
 const LocalStrategy = Strategy;
 import "./src/db/config.js";
 import { auth } from "./src/middlewares/auth.js";
+import MongoStore from "connect-mongo";
 
 const app = express();
 
@@ -20,6 +21,7 @@ const app = express();
 app.use(cookieParser());
 app.use(
   session({
+    store: new MongoStore({ mongoUrl: "mongodb://localhost/sesiones" }),
     secret: "1234567890!@#$%^&*()",
     resave: false,
     saveUninitialized: false,
